@@ -7,7 +7,7 @@ const cookieParser=require('cookie-parser');
 const mongoose=require('mongoose');
 const {encrypt,decrypt,secretKey} =require('./crypto');
 const MongoDBStore=require('connect-mongodb-session')(session);
-const MONGO_URI="mongodb://localhost:27017";
+const MONGO_URI="mongodb://localhost:27017/simpleLoginDB";
 const store=new MongoDBStore({
     uri: MONGO_URI,
     collections: 'sessions'
@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(
     session({
       secret: secretKey,
-      resave: false,
+      resave: true,
       saveUninitialized: false,
       cookie: {
         expires: 60000*30,
